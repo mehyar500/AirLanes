@@ -1,6 +1,6 @@
-https://arcane-stream-74672.herokuapp.com/
-https://git.heroku.com/arcane-stream-74672.git
-https://github.com/mehyar500/AirLanes
+# * https://arcane-stream-74672.herokuapp.com/
+# * https://git.heroku.com/arcane-stream-74672.git
+# * https://github.com/mehyar500/AirLanes
 
 # AirLanes
 ## airLane is a P2P sharing economy business model for renting aircrafts 
