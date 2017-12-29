@@ -14,6 +14,16 @@ const dbConnection = require('./db') // loads our connection to the mongo databa
 const app = express()
 const PORT = process.env.PORT || 8080
 
+// include and initialize the rollbar library with your access token
+const Rollbar = require("rollbar");
+const rollbar = new Rollbar({
+  accessToken: "502e29ead6874bee9d4869b08a336317",
+  captureUncaught: true,
+  captureUnhandledRejections: true
+});
+// record a generic message and send it to Rollbar
+rollbar.log("Hello world!");
+
 // ===== Middleware ====
 app.use(morgan('dev'))
 app.use(
@@ -49,6 +59,9 @@ app.use(function(err, req, res, next) {
 	console.error(err.stack)
 	res.status(500)
 })
+
+// Use the rollbar error handler to send exceptions to your rollbar account
+app.use(rollbar.errorHandler());
 
 // ==== Starting Server =====
 app.listen(PORT, () => {
