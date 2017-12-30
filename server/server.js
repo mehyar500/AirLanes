@@ -4,10 +4,11 @@ if (process.env.NODE_ENV !== 'production') {
 	require('dotenv').config()
 }
 require('dotenv').config()
-
+// Assign needed packages as requirments
 const express = require('express')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
+const path = require("path");
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session)
 const dbConnection = require('./db') // loads our connection to the mongo database
@@ -44,7 +45,6 @@ app.use(
 
 // ==== if its production environment!
 if (process.env.NODE_ENV === 'production') {
-	const path = require('path')
 	console.log('YOU ARE IN THE PRODUCTION ENV')
 	app.use('/static', express.static(path.join(__dirname, '../build/static')))
 	app.get('/', (req, res) => {

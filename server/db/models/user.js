@@ -4,8 +4,9 @@ mongoose.promise = Promise
 
 // Define userSchema
 const userSchema = new Schema({
-	firstName: { type: String, unique: false },
-	lastName: { type: String, unique: false }
+	firstName: { type: String },
+	lastName: { type: String },
+	zipCode: {type: Number}
 })
 
 // Create reference to User & export
