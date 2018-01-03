@@ -1,23 +1,22 @@
 const path = require('path');
+const webpack = require("webpack");
 
 module.exports = {
-    entry: [
-      path.resolve(__dirname, 'app/main.js'),
-      'webpack/hot/dev-server',
-      'webpack-dev-server/client?http://localhost:8080',
-    ],
-    output: {
-        path: path.resolve(__dirname, 'build'),
-        filename: 'bundle.js',
-    },
-    module: {
-      loaders: [
-        {
-          test: /\.jsx?$/,
-          exclude: /(node_modules|bower_components)/,
-          loader: 'babel-loader',
-          query:  {presets:['env','react']}
-        }
-      ]
-    }
+  context: path.resolve(__dirname, "app"),
+  entry: "./app.js",
+  output: {
+    path: path.resolve(__dirname, "build"),
+    filename: "bundle.js"
+  },
+  module: {
+    loaders: [
+      {
+        test: /\.jsx?$/,
+        include: path.resolve(__dirname, 'app'),
+        exclude: /(node_modules|bower_components)/,
+        loader: "babel-loader",
+        query: { presets: ["env", "react"] }
+      }
+    ]
+  }
 };
