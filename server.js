@@ -7,6 +7,7 @@ const path = require("path");
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const dbConnection = require('./db'); // loads our connection to the mongo database
+const routes = require("./routes"); //require our routes for use
 const app = express();
 
 app.set('port', (process.env.PORT || 3000));
@@ -34,6 +35,9 @@ app.use(
   })
 );
 
+// Add routes, both API and view
+app.use(routes);
+
 // ==== if its production environment!
 if (process.env.NODE_ENV === 'production') {
 	console.log('YOU ARE IN THE PRODUCTION ENV')
@@ -46,7 +50,13 @@ app.use(function(err, req, res, next) {
 	console.log('====== ERROR =======')
 	console.error(err.stack)
 	res.status(500)
-})
+});
+
+// Send every request to the React app
+// Define any API routes before this runs
+app.get("*", function(req, res) {
+  res.sendFile(path.join(__dirname, "./build/index.html"));
+});
 
 // Use the rollbar error handler to send exceptions to your rollbar account
 app.use(rollbar.errorHandler());
